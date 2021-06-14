@@ -23,6 +23,7 @@ vi.	Country of Residence (dropdown)
 c.	All fields are mandatory.
 d.	E-Mail must be unique and valid as per standard format.
 e.	Password minimum length is 8 and it must have at-least 1 special character, 1 number and 1 alphabet each.
+
 ![image](https://user-images.githubusercontent.com/44699205/121890833-67e73380-cd38-11eb-80da-30c0b53c6106.png)
 
  
@@ -33,6 +34,7 @@ b.	It only has tweets from people he/she is following along with his/her own twe
 c.	The tweet messages are listed in reverse chronological order. i.e. Latest message comes on top.
 d.	User has choice to like or dislike a tweet.
 e.	Only user who created the tweet has option to Edit/Delete a tweet.
+
 ![image](https://user-images.githubusercontent.com/44699205/121890886-759cb900-cd38-11eb-8413-77b0c643d898.png)
 
 
@@ -51,6 +53,7 @@ d.	On clicking Done, the message gets saved and should be displayed on user Dash
 4.	Followers
 a.	This tab shows all the followers of current logged in user.
 b.	Total Number of followers are shown in tab’s heading.
+
  ![image](https://user-images.githubusercontent.com/44699205/121890959-8e0cd380-cd38-11eb-8272-2e509eb2f271.png)
 
 
@@ -58,6 +61,7 @@ b.	Total Number of followers are shown in tab’s heading.
 a.	This tab shows all the users which current logged in user is following.
 b.	Total Number of users being followed are shown in tab’s heading.
 c.	User has option to UnFollow.
+
 ![image](https://user-images.githubusercontent.com/44699205/121891002-98c76880-cd38-11eb-813a-addaf490b3c4.png)
 
 
@@ -67,6 +71,7 @@ a.	People: Search result works on email, first-name and last-name.
 “Follow”/ “Unfollow” option appears next to searched users.
 On clicking these buttons respective action is done.
 b.	Post: Search result works only on hashtags.
+
 ![image](https://user-images.githubusercontent.com/44699205/121891035-a0870d00-cd38-11eb-93fa-66e921d4a9aa.png)
 
 
