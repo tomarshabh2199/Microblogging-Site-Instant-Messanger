@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Edit Tweet";
+}
+
+<h2 style="font-family:cursive;">Edit Tweet</h2>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="card text-center">
+            <div class="card-body">
+                <label for="other" style="margin-right:150px" ;>Tweet title</label><br>
+                <input type="text" id="Name" class="form-control" style="margin-left:350px" value="@(item.Name)">
+                <br><br>
+                <label for="other" style="margin-right:150px" ;>Content (at max 300 char)</label><br>
+                <textarea id="Content" rows="5" cols="40" class="form-control" style="margin-left:350px">@(item.Content)</textarea>
+                <br><br>
+                <input type="hidden" name="postId-UserId" value="@(item.Id)-@(item.User_id)">
+                <br>
+                <button type="submit" class="btn btn-success" alertify="Updated succesfully" style="margin-right:150px" onclick="UpdatePost(@(item.Id),@(item.User_id))" name="editPostData" id="EditButton"><i class="fa fa-pencil">Update</i></button>
+
+            </div>
+        </div>
+    }
+}
+
+<div>
+    <H4 onclick="gotoHomepage()" style="cursor:pointer; text-decoration:underline;font-size:large; font-family:cursive;">Back To DashBoard</H4>
+</div>
+
+<script>
+
+    function gotoHomepage() {
+
+        var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+        console.log('loginUserEmail' + loginUserEmail);
+        window.location.href = "/Home/Index" + "?loginUserEmail=" + loginUserEmail;
+    }
+
+    $(document).ready(function () {
+        var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+        console.log('loginUserEmail' + loginUserEmail);
+        document.getElementById("User_id").value = loginUserEmail;
+    });
+
+
+    function UpdatePost(postId, UserId) {
+        console.log('postId' + postId);
+        console.log('UserId' + UserId);
+
+        var name = document.getElementById("Name").value;
+        console.log('name' + name);
+        var content = document.getElementById("Content").value;
+        console.log('content' + content);
+
+
+        $.ajax({
+            url: '/api/update-post-data',
+            method: 'POST',
+            data: {
+                postId: postId,
+                UserId: UserId,
+                name: name,
+                content: content
+            },
+            Content: 'application/json',
+            success: function (data) {
+                console.log(typeof (data));
+                console.log('data ' + data);
+                if (data != null) {
+                    //alertify.confirm('do you really want to update ??', function () {
+                    //    alertify.success('Ok') },
+                    //    function (data) {
+                    //        alertify.error('Cancel')
+                    //})
+                    //alertify.confirm("do you really want to update");
+                    alertify.success(data);
+                    console.log("update Successfully");
+                    var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+                    console.log('loginUserEmail' + loginUserEmail);
+                    window.location.href = "/Home/Index" + "?loginUserEmail=" + loginUserEmail;
+                    console.log('Delete');
+                }
+            },
+            error: function (err) {
+                alert.error(err);
+                console.error(err);
+            }
+        })
+    }
+</script>
+<script src="~/Scripts/alertify.min.js"></script>
+<script src="~/Scripts/alertify.js"></script>
+<link href="~/Content/alertifyjs/alertify.css" rel="stylesheet" />
+<link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />

@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Analytics";
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<h3 style="font-size:xx-large; font-family:cursive; text-decoration-line: underline; text-decoration-style: double;">Analytics</h3>
+<br />
+<br />
+@*//for each loop se traverse*@
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="card text-center">
+            <div class="card-body">
+                <h4 style="font-family:cursive;">Most Trending HashTags:<mark> @item.MostTrendingHashTags</mark></h4><br />
+                <h4 style="font-family:cursive;">total tweets today:<mark> @item.TotalTweetstoday</mark></h4><br />
+                <h4 style="font-family:cursive;">Most Tweet By Person:<mark>@item.MostTweetByPerson</mark></h4><br />
+                
+            </div>
+        </div>
+    }
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<div>
+    <H4 onclick="gotoHomepage()" style="cursor:pointer; text-decoration:underline;font-size:large; font-family:cursive;">Back To DashBoard</H4>
+</div>
+<script>
+    function gotoHomepage() {
+
+        var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+        console.log('loginUserEmail' + loginUserEmail);
+        window.location.href = "/Home/Index" + "?loginUserEmail=" + loginUserEmail;
+    }
+
+
+</script>
+

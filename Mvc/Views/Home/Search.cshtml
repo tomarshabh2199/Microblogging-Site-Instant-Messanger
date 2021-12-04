@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2 class="text-center" style="font-family:cursive; font-size:xx-large; text-decoration-line: underline; text-decoration-style: double;">Search</h2>
+<br />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<br />
+<input class="form-control" id="SearchValue" type="text" size="40" style="margin-left:450px;">
+                        <i class="fa fa-search" style="margin-left:709px;"></i>
+<br />
+<br />
+<button type="button" class="btn btn-primary btn-lg" id="SearchDataButton" style= "margin-left:530px; width:70px; font-size: 15px;" onclick="GetSearchValue()">Search</button>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div>
+    <h4 onclick="gotoHomepage()" style="cursor:pointer; text-decoration:underline; font-size:large; font-family:cursive;">Back To DashBoard</h4>
+</div>
+
+<script>
+
+    function GetSearchValue() {
+        var data = document.getElementById("SearchValue").value;
+        console.log('data--' + data);
+        var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+        console.log('loginUserEmail' + loginUserEmail);
+        window.location.href = "/Home/SearchData" + "?data=" + data + "&loginUserEmail=" + loginUserEmail;
+    }
+
+    function gotoHomepage() {
+
+        var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+        console.log('loginUserEmail' + loginUserEmail);
+        window.location.href = "/Home/Index" + "?loginUserEmail=" + loginUserEmail;
+    }
+</script>
+
+

@@ -1,0 +1,58 @@
+﻿@model Mvc.Models.ComposePost
+
+@{
+    ViewBag.Title = "ComposePost";
+}
+
+  <h2 style="font-family:cursive;">Compose Post</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal" style="margin-left:300px;">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Title for Blog", required = "required" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<textarea cols="50" rows=""></textarea>*@
+                @*@Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", placeholder="Content of tweet" ,required="required" } })*@
+                @Html.TextAreaFor(model => model.Content, new { @class = "form-control", cols = "40", rows = "9", placeholder = "Content of tweet can use # tags for trending posts maximum content field must only 250 words", required = "required" })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            @Html.HiddenFor(model => model.User_id)
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" alertify="You post Added succesfully" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+}
+<br />
+<br />
+<br />
+<div>
+    <H4 onclick="gotoHomepage()" style="cursor:pointer; text-decoration:underline;font-size:large; font-family:cursive;">Back To DashBoard</H4>
+</div>
+ 
+<script>
+    $(document).ready(function () {
+        var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+        console.log('loginUserEmail' + loginUserEmail);
+        document.getElementById("User_id").value = loginUserEmail;
+    });
+
+    function gotoHomepage() {
+        
+        var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+        console.log('loginUserEmail' + loginUserEmail);
+        window.location.href = "/Home/Index" + "?loginUserEmail=" + loginUserEmail;
+    }
+</script>

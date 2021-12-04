@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Followers";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<br />
+<h1 style="font-family:cursive; margin-left:370px; text-decoration-line: underline; text-decoration-style: double;">List of Followers</h1>
+<br />
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="card text-center">
+            <div class="card-body">
+                <img src="@item.userImage" style="height:100px; width:100px;"><br>
+                <h5 class="card-title" style="display: inline-block; padding:5px;" id="name">@(item.Firstname)</h5>
+                @*<a class="btn btn-success" onclick="followfunction(@(item.Id));" id="@(item.Id)-follow">Follow</a>&nbsp; &nbsp; &nbsp;*@
+                @*<a class="btn btn-success" onclick="unfollowfunction(@(item.Id));" id="@(item.Id)-unfollow">UnFollow</a>&nbsp; &nbsp; &nbsp;*@
+            </div>
+        </div>
+    }
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div>
+    <H4 onclick="gotoHomepage()" style="cursor:pointer; text-decoration:underline;font-size:large; font-family:cursive;">Back To DashBoard</H4>
+</div>
+<script>
+
+    function gotoHomepage() {
+
+        var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+        console.log('loginUserEmail' + loginUserEmail);
+        window.location.href = "/Home/Index" + "?loginUserEmail=" + loginUserEmail;
+    }
+
+    function unfollowfunction(id) {
+        console.log('id' + id);
+        var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+        console.log('loginUserEmail' + loginUserEmail);
+        $.ajax({
+            url: '/api/delete-unfollow-data',
+            method: 'POST',
+            data: {
+                data: id,
+                loginUserEmail: loginUserEmail
+            },
+            Content: 'application/json',
+            success: function (data) {
+                console.log(typeof (data));
+                console.log('data ' + data);
+                if (data != null) {
+                    //alert(data);
+                    alertify.success(data);
+                    console.log('Unfollow');
+                }
+            },
+            error: function (err) {
+                alert(err);
+                console.error(err);
+            }
+        })
+
+    }
+</script>
+

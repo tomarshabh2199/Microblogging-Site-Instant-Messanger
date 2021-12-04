@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "\\App_Data",
+    "\\bin",
+    "\\Content",
+    "\\Controllers",
+    "\\fonts",
+    "\\Models",
+    "\\obj",
+    "\\Views",
+    "\\Views\\Home",
+    "\\Views\\Shared"
+  ],
+  "PreviewInSolutionExplorer": false
+}

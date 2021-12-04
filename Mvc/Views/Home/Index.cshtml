@@ -1,0 +1,181 @@
+﻿@model Mvc.Models.Home
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@* Bootstrap, Ajax, Jquery, font All these Libraries*@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+@*Navigation and Header*@
+<header>
+    <nav class="nav">
+        <ul class="nav nav-tabs">
+            <br />
+            <button type="button" class="btn btn-info btn-lg" id="followerButton" onclick="GetFollwersData()">Followers(@Model.totalFollowerCount)</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-info btn-lg" id="followingButton" onclick="GetFollwingsData()">Followings(@Model.totalFollowingCount)</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-info btn-lg" id="SearchButton" onclick="GetSearchData()">Search</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-info btn-lg" id="AnalyticButton" onclick="GetAnalyticsData()">Analytics</button>&nbsp;&nbsp;
+            <br />
+        </ul>
+    </nav>
+</header>
+        <br />
+        <br />
+        <h1 class="text-center" style="text-decoration:underline; font-family:Algerian">Logged-In User <img src="@Model.userImage" style="height:70px; width:100px; margin-left:50px;"></h1>
+
+        <br />
+        <br />
+
+        <script>
+
+            function GetAnalyticsData() {
+                var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+                console.log('loginUserEmail--' + loginUserEmail);
+                window.location.href = "/Home/Analytics"
+            }
+
+            function GetSearchData() {
+                var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+                console.log('loginUserEmail--' + loginUserEmail);
+                window.location.href = "/Home/Search"
+            }
+
+
+            function GetFollwersData() {
+                var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+                console.log('loginUserEmail--' + loginUserEmail);
+                window.location.href = "/Home/Followers" + "?loginEmailAddress=" + loginUserEmail;
+            }
+
+
+            function GetFollwingsData() {
+                var loginUserEmail = document.getElementById("loginUserEmail").getAttribute("value");
+                console.log('loginUserEmail--' + loginUserEmail);
+                window.location.href = "/Home/Following" + "?loginEmailAddress=" + loginUserEmail;
+            }
+
+            //function GetAnalyticsData() {
+            //$.ajax({
+            //url: '/api/get-analytics-data',
+            //method: 'GET',
+
+            //Content: 'application/json',
+            //success: function (data) {
+            //console.log(typeof (data));
+            //console.log('data ' + data);
+            //if (data != null) {
+            //alert(data);
+            //console.log('follow');
+            //}
+            //},
+            //error: function (err) {
+            //alert(err);
+            //console.error(err);
+            //}
+            //})
+            //}
+
+        </script>
+
+        <div>
+            @Html.ActionLink("Compose New Post", "ComposePost", "Home", new { @style = "margin-left:890px; font-size:large; font-family:cursive;" })
+        </div>
+        @*<button class="btn-default" style="margin-left:900px">Compose New Post</button>*@
+
+        <br />
+        <br />
+        <br />
+
+        @if (Model.ComposePosts != null)
+        {
+
+            foreach (var item in Model.ComposePosts)
+            {
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="@item.userImage" style="height:100px; width:100px;">
+                        <h5 class="card-title">@(item.Name)</h5>
+                        <p class="card-text">@(item.Content)</p>
+                        @if(item.isUserTweet){
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="button" onclick="editPost(@(item.Id),@(item.User_id))" id="@(item.Id)-@(item.User_id)-Edit"><i class="fa fa-pencil">Edit</i></button>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="button" onclick="DeletePost(@(item.Id),@(item.User_id))" id="@(item.Id)-@(item.User_id)-Delete"><i class="fa fa-trash">Delete</i></a>
+                    }
+                    </div>
+                </div>
+
+
+                <div class="card-footer text-muted">
+                    @(item.Created_date)
+                </div>
+            }
+
+        }
+
+        <script>
+            function editPost(postId, UserId) {
+                console.log('postId' + postId);
+                console.log('UserId' + UserId);
+                window.location.href = "/Home/EditPostData" + "?postId=" + postId + "&UserId=" + UserId;
+                //$.ajax({
+                //url: '/api/edit-post-data',
+                //method: 'POST',
+                //data: {
+                //postId: postId,
+                //UserId: UserId
+                //},
+                //Content: 'application/json',
+                //success: function (data) {
+                //console.log(typeof (data));
+                //console.log('data ' + data);
+                //if (data != null) {
+                //var w = window.open('about:blank');
+                //w.document.open();
+                //w.document.write(data);
+                //w.document.close();
+                //console.log('Edit');
+                //}
+                //},
+                //error: function (err) {
+                //alert(err);
+                //console.error(err);
+                //}
+                //})
+            }
+
+            function DeletePost(postId, UserId) {
+                console.log('postId' + postId);
+                console.log('UserId' + UserId);
+                $.ajax({
+                    url: '/api/delete-post-data',
+                    method: 'POST',
+                    data: {
+                        postId: postId,
+                        UserId: UserId
+                    },
+                    Content: 'application/json',
+                    success: function (data) {
+                        console.log(typeof (data));
+                        console.log('data ' + data);
+                        if (data != null) {
+                            alert(data);
+                            location.reload(true);
+                            console.log('Delete');
+                        }
+                    },
+                    error: function (err) {
+                        alert(err);
+                        console.error(err);
+                    }
+                })
+
+            }
+
+        </script>
+        <br />
+
